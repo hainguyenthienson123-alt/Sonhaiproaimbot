@@ -1,5 +1,3 @@
-﻿Hain -owner deaduzz
-pyschez -scripter
 fuck yall
 
 
@@ -757,3 +755,4 @@ game:GetService('RunService').RenderStepped:Connect(function()
 end)
 
 _call9.PlayerRemoving:Connect(function(_523) end)
+
