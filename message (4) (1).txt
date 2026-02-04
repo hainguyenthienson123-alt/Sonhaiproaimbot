@@ -1,758 +1,117 @@
-fuck yall
+-- fuck yall
 
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
-local _call5 = game:GetService('UserInputService')
+local Camera = workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
 
+-- Colors
+local COLOR_BG = Color3.fromRGB(15, 15, 25)
+local COLOR_BG2 = Color3.fromRGB(25, 25, 40)
+local COLOR_ACCENT = Color3.fromRGB(0, 255, 255)
+local COLOR_ACCENT2 = Color3.fromRGB(180, 0, 255)
+local COLOR_TEXT = Color3.fromRGB(240, 240, 255)
+local COLOR_WARN = Color3.fromRGB(255, 50, 80)
 
-game:GetService('TweenService')
+-- ================= CREDIT NOTIFY =================
+local CreditGui = Instance.new("ScreenGui")
+CreditGui.Name = "CreditNotify"
+CreditGui.DisplayOrder = 999
+CreditGui.ResetOnSpawn = false
+CreditGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 
+local CreditFrame = Instance.new("Frame")
+CreditFrame.Size = UDim2.new(0, 260, 0, 70)
+CreditFrame.Position = UDim2.new(1, 10, 1, -100)
+CreditFrame.BackgroundColor3 = COLOR_BG
+CreditFrame.BorderSizePixel = 0
+CreditFrame.Parent = CreditGui
 
-local _call9 = game:GetService('Players')
-local _workspaceCurrentCamera10 = workspace.CurrentCamera
-local _LocalPlayer11 = _call9.LocalPlayer
-local _call13 = Color3.fromRGB(15, 15, 25)
-local _call15 = Color3.fromRGB(25, 25, 40)
-local _call17 = Color3.fromRGB(0, 255, 255)
-local _call19 = Color3.fromRGB(180, 0, 255)
-local _call21 = Color3.fromRGB(240, 240, 255)
+Instance.new("UICorner", CreditFrame).CornerRadius = UDim.new(0, 8)
 
+local CreditStroke = Instance.new("UIStroke", CreditFrame)
+CreditStroke.Color = COLOR_ACCENT
+CreditStroke.Thickness = 2
 
-Color3.fromRGB(50, 255, 100)
+local Title = Instance.new("TextLabel", CreditFrame)
+Title.Size = UDim2.new(1, -20, 0, 30)
+Title.Position = UDim2.new(0, 15, 0, 5)
+Title.Text = "Made By"
+Title.TextColor3 = COLOR_ACCENT
+Title.TextSize = 18
+Title.Font = Enum.Font.GothamBold
+Title.BackgroundTransparency = 1
+Title.TextXAlignment = Enum.TextXAlignment.Left
 
+local Name = Instance.new("TextLabel", CreditFrame)
+Name.Size = UDim2.new(1, -20, 0, 30)
+Name.Position = UDim2.new(0, 15, 0, 30)
+Name.Text = "HainSigma (Minh soi gang)"
+Name.TextColor3 = COLOR_TEXT
+Name.TextSize = 15
+Name.Font = Enum.Font.GothamBold
+Name.BackgroundTransparency = 1
+Name.TextXAlignment = Enum.TextXAlignment.Left
 
-local _call25 = Color3.fromRGB(255, 50, 80)
-local _call27 = Instance.new('ScreenGui')
+CreditFrame:TweenPosition(
+    UDim2.new(1, -270, 1, -100),
+    "Out",
+    "Quad",
+    0.5,
+    true
+)
 
-
-_call27.Name = 'CreditNotify'
-_call27.DisplayOrder = 999
-_call27.ResetOnSpawn = false
-_call27.Parent = _LocalPlayer11:WaitForChild('PlayerGui')
-
-
-local _call31 = Instance.new('Frame')
-
-
-_call31.Size = UDim2.new(0, 260, 0, 70)
-_call31.Position = UDim2.new(1, 10, 1, -100)
-_call31.BackgroundColor3 = _call13
-_call31.BorderSizePixel = 0
-_call31.Parent = _call27
-
-
-local _call37 = Instance.new('UICorner', _call31)
-
-
-_call37.CornerRadius = UDim.new(0, 8)
-
-
-local _call41 = Instance.new('UIStroke', _call31)
-
-
-_call41.Color = _call17
-_call41.Thickness = 2
-
-
-local _call43 = Instance.new('TextLabel')
-
-
-_call43.Size = UDim2.new(1, -20, 0, 30)
-_call43.Position = UDim2.new(0, 15, 0, 5)
-_call43.Text = 'Made By'
-_call43.TextColor3 = _call17
-_call43.TextSize = 18
-_call43.Font = Enum.Font.GothamBold
-_call43.BackgroundTransparency = 1
-_call43.TextXAlignment = Enum.TextXAlignment.Left
-_call43.Parent = _call31
-
-
-local _call53 = Instance.new('TextLabel')
-
-
-_call53.Size = UDim2.new(1, -20, 0, 30)
-_call53.Position = UDim2.new(0, 15, 0, 30)
-_call53.Text = 'HainSigma (Minh soi gang)'
-_call53.TextColor3 = _call21
-_call53.TextSize = 15
-_call53.Font = Enum.Font.GothamBold
-_call53.BackgroundTransparency = 1
-_call53.TextXAlignment = Enum.TextXAlignment.Left
-_call53.Parent = _call31
-
-
-_call31:TweenPosition(UDim2.new(1, -270, 1, -100), 'Out', 'Quad', 0.5, true)
 task.delay(4, function()
-    _call31:TweenPosition(UDim2.new(1, 10, 1, -100), 'In', 'Quad', 0.5, true, function()
-        _call27:Destroy()
-    end)
+    CreditFrame:TweenPosition(
+        UDim2.new(1, 10, 1, -100),
+        "In",
+        "Quad",
+        0.5,
+        true,
+        function()
+            CreditGui:Destroy()
+        end
+    )
 end)
 
-
-local _call77 = Drawing.new('Circle')
-
-
-_call77.Visible = true
-_call77.Thickness = 2
-_call77.Color = _call19
-_call77.Filled = false
-_call77.Radius = 100
-_call77.Position = (_workspaceCurrentCamera10.ViewportSize / 2)
-
-
-local _call81 = Instance.new('ScreenGui')
-
-
-_call81.Name = 'Neon_Space_Aimbot'
-_call81.ResetOnSpawn = false
-_call81.Parent = _LocalPlayer11:WaitForChild('PlayerGui')
-
-
-local _call85 = Instance.new('Frame')
-
-
-_call85.Size = UDim2.new(0, 240, 0, 360)
-_call85.Position = UDim2.new(0.5, -120, 0.5, -170)
-_call85.BackgroundColor3 = _call13
-_call85.Active = true
-_call85.Visible = true
-_call85.Parent = _call81
-
-
-local _call91 = Instance.new('UICorner', _call85)
-
-
-_call91.CornerRadius = UDim.new(0, 12)
-
-
-local _call95 = Instance.new('UIStroke', _call85)
-
-
-_call95.Thickness = 2
-_call95.Color = _call17
-
-
-local _call97 = Instance.new('Frame')
-
-
-_call97.Size = UDim2.new(0, 100, 0, 35)
-_call97.Position = UDim2.new(0.1, 0, 0.2, 0)
-_call97.BackgroundColor3 = _call13
-_call97.Active = true
-_call97.Parent = _call81
-
-
-local _call103 = Instance.new('UICorner', _call97)
-
-
-_call103.CornerRadius = UDim.new(0, 8)
-
-
-local _call107 = Instance.new('UIStroke', _call97)
-
-
-_call107.Thickness = 2
-_call107.Color = _call19
-
-
-local _call109 = Instance.new('TextButton')
-
-
-_call109.Size = UDim2.new(1, 0, 1, 0)
-_call109.BackgroundTransparency = 1
-_call109.Text = 'MENU'
-_call109.TextColor3 = _call17
-_call109.Font = Enum.Font.GothamBold
-_call109.TextSize = 14
-_call109.Parent = _call97
-
-
-local _call115 = Instance.new('Frame')
-
-
-_call115.Size = UDim2.new(0, 120, 0, 40)
-_call115.Position = UDim2.new(0.8, 0, 0.2, 0)
-_call115.BackgroundColor3 = _call13
-_call115.Visible = false
-_call115.Parent = _call81
-
-
-local _call121 = Instance.new('UICorner', _call115)
-
-
-_call121.CornerRadius = UDim.new(0, 8)
-
-
-local _call125 = Instance.new('UIStroke', _call115)
-
-
-_call125.Thickness = 2
-_call125.Color = _call17
-
-
-local _call127 = Instance.new('TextButton')
-
-
-_call127.Size = UDim2.new(1, -10, 1, -10)
-_call127.Position = UDim2.new(0, 5, 0, 5)
-_call127.BackgroundColor3 = _call19
-_call127.Text = 'AIMBOT'
-_call127.TextColor3 = _call21
-_call127.Font = Enum.Font.GothamBold
-_call127.TextSize = 14
-_call127.Parent = _call115
-
-
-local _call135 = Instance.new('UICorner', _call127)
-
-
-_call135.CornerRadius = UDim.new(0, 6)
-
-
-_call109.InputBegan:Connect(function(_141)
-    local _ = _141.UserInputType == Enum.UserInputType.MouseButton1
-    local _ = _141.UserInputType == Enum.UserInputType.Touch
-end)
-_call5.InputChanged:Connect(function(_153) end)
-_call85.InputBegan:Connect(function(_157)
-    local _ = _157.UserInputType == Enum.UserInputType.MouseButton1
-    local _ = _157.UserInputType == Enum.UserInputType.Touch
-end)
-_call5.InputChanged:Connect(function(_169) end)
-_call127.InputBegan:Connect(function(_173)
-    local _ = _173.UserInputType == Enum.UserInputType.MouseButton1
-    local _ = _173.UserInputType == Enum.UserInputType.Touch
-end)
-_call5.InputChanged:Connect(function(_185) end)
-
-
-local _call187 = Instance.new('Frame')
-
-
-_call187.Size = UDim2.new(1, -20, 0, 40)
-_call187.Position = UDim2.new(0, 10, 0, 10)
-_call187.BackgroundTransparency = 1
-_call187.Parent = _call85
-
-
-local _call193 = Instance.new('TextButton')
-
-
-_call193.Size = UDim2.new(0.5, -5, 1, 0)
-_call193.Position = UDim2.new(0, 0, 0, 0)
-_call193.BackgroundColor3 = _call19
-_call193.Text = 'AIM'
-_call193.TextColor3 = _call21
-_call193.Font = Enum.Font.GothamBold
-_call193.TextSize = 16
-_call193.Parent = _call187
-
-
-local _call201 = Instance.new('UICorner', _call193)
-
-
-_call201.CornerRadius = UDim.new(0, 8)
-
-
-local _call205 = Instance.new('TextButton')
-
-
-_call205.Size = UDim2.new(0.5, -5, 1, 0)
-_call205.Position = UDim2.new(0.5, 5, 0, 0)
-_call205.BackgroundColor3 = _call15
-_call205.Text = 'ESP'
-_call205.TextColor3 = _call21
-_call205.Font = Enum.Font.GothamBold
-_call205.TextSize = 16
-_call205.Parent = _call187
-
-
-local _call213 = Instance.new('UICorner', _call205)
-
-
-_call213.CornerRadius = UDim.new(0, 8)
-
-
-local _call217 = Instance.new('ScrollingFrame')
-
-
-_call217.Size = UDim2.new(1, 0, 1, -60)
-_call217.Position = UDim2.new(0, 0, 0, 60)
-_call217.BackgroundTransparency = 1
-_call217.BorderSizePixel = 0
-_call217.ScrollBarThickness = 2
-_call217.ScrollBarImageColor3 = _call17
-_call217.CanvasSize = UDim2.new(0, 0, 0, 420)
-_call217.Visible = true
-_call217.Parent = _call85
-
-
-local _call225 = Instance.new('Frame')
-
-
-_call225.Size = UDim2.new(1, 0, 1, -60)
-_call225.Position = UDim2.new(0, 0, 0, 60)
-_call225.BackgroundTransparency = 1
-_call225.Visible = false
-_call225.Parent = _call85
-
-
-_call193.MouseButton1Click:Connect(function()
-    _call217.Visible = true
-    _call225.Visible = false
-    _call193.BackgroundColor3 = _call19
-    _call193.TextColor3 = _call21
-    _call205.BackgroundColor3 = _call15
-    _call205.TextColor3 = Color3.fromRGB(150, 150, 150)
-end)
-_call205.MouseButton1Click:Connect(function()
-    _call217.Visible = false
-    _call225.Visible = true
-    _call193.BackgroundColor3 = _call15
-    _call193.TextColor3 = Color3.fromRGB(150, 150, 150)
-    _call205.BackgroundColor3 = _call19
-    _call205.TextColor3 = _call21
+-- ================= FOV CIRCLE =================
+local FOVCircle = Drawing.new("Circle")
+FOVCircle.Visible = true
+FOVCircle.Thickness = 2
+FOVCircle.Color = COLOR_ACCENT2
+FOVCircle.Filled = false
+FOVCircle.Radius = 100
+FOVCircle.Position = Camera.ViewportSize / 2
+
+-- ================= MAIN GUI =================
+local MainGui = Instance.new("ScreenGui")
+MainGui.Name = "Neon_Space_Aimbot"
+MainGui.ResetOnSpawn = false
+MainGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+local MainFrame = Instance.new("Frame", MainGui)
+MainFrame.Size = UDim2.new(0, 240, 0, 360)
+MainFrame.Position = UDim2.new(0.5, -120, 0.5, -170)
+MainFrame.BackgroundColor3 = COLOR_BG
+MainFrame.Active = true
+
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 12)
+
+local MainStroke = Instance.new("UIStroke", MainFrame)
+MainStroke.Thickness = 2
+MainStroke.Color = COLOR_ACCENT
+
+-- ================= UPDATE LOOP =================
+RunService.RenderStepped:Connect(function()
+    FOVCircle.Position = Camera.ViewportSize / 2
 end)
 
-
-local _call245 = Instance.new('TextButton')
-
-
-_call245.Size = UDim2.new(1, -20, 0, 40)
-_call245.Position = UDim2.new(0, 10, 0, 0)
-_call245.Text = 'AIMBOT: ON'
-_call245.BackgroundColor3 = _call19
-_call245.TextColor3 = _call21
-_call245.Font = Enum.Font.GothamBold
-_call245.TextSize = 14
-_call245.Parent = _call217
-
-
-local _call251 = Instance.new('UICorner', _call245)
-
-
-_call251.CornerRadius = UDim.new(0, 8)
-
-
-local _call255 = Instance.new('UIStroke', _call245)
-
-
-_call255.Thickness = 1
-_call255.Color = _call17
-_call255.Transparency = 0.5
-
-
-_call245.MouseButton1Click:Connect(function()
-    _call77.Visible = false
-    _call245.Text = 'AIMBOT: OFF'
-    _call245.BackgroundColor3 = _call15
-    _call127.BackgroundColor3 = _call15
+-- ================= CLEAN EXIT =================
+Players.PlayerRemoving:Connect(function()
+    if FOVCircle then
+        FOVCircle:Remove()
+    end
 end)
-
-
-local _call263 = Instance.new('TextButton')
-
-
-_call263.Size = UDim2.new(1, -20, 0, 40)
-_call263.Position = UDim2.new(0, 10, 0, 45)
-_call263.Text = 'Show Floating Toggle: OFF'
-_call263.BackgroundColor3 = _call15
-_call263.TextColor3 = _call21
-_call263.Font = Enum.Font.GothamBold
-_call263.TextSize = 14
-_call263.Parent = _call217
-
-
-local _call269 = Instance.new('UICorner', _call263)
-
-
-_call269.CornerRadius = UDim.new(0, 8)
-
-
-local _call273 = Instance.new('UIStroke', _call263)
-
-
-_call273.Thickness = 1
-_call273.Color = _call17
-_call273.Transparency = 0.5
-
-
-_call263.MouseButton1Click:Connect(function()
-    _call115.Visible = true
-    _call263.Text = 'Show Floating Toggle: ON'
-    _call263.BackgroundColor3 = _call17
-    _call263.TextColor3 = Color3.new(0, 0, 0)
-end)
-_call127.MouseButton1Click:Connect(function()
-    _call77.Visible = true
-    _call245.Text = 'AIMBOT: ON'
-    _call245.BackgroundColor3 = _call19
-    _call127.BackgroundColor3 = _call19
-end)
-
-
-local _call285 = Instance.new('TextBox')
-
-
-_call285.Size = UDim2.new(1, -20, 0, 40)
-_call285.Position = UDim2.new(0, 10, 0, 95)
-_call285.PlaceholderText = 'FOV'
-_call285.Text = '100'
-_call285.BackgroundColor3 = _call15
-_call285.TextColor3 = _call21
-_call285.Font = Enum.Font.GothamBold
-_call285.TextSize = 16
-_call285.Parent = _call217
-
-
-local _call293 = Instance.new('UICorner', _call285)
-
-
-_call293.CornerRadius = UDim.new(0, 8)
-
-
-local _call297 = Instance.new('UIStroke', _call285)
-
-
-_call297.Color = _call17
-_call297.Transparency = 0.5
-
-
-local _call301 = Instance.new('TextButton')
-
-
-_call301.Size = UDim2.new(1, -20, 0, 40)
-_call301.Position = UDim2.new(0, 10, 0, 140)
-_call301.Text = 'Set FOV'
-_call301.BackgroundColor3 = _call15
-_call301.TextColor3 = _call21
-_call301.Font = Enum.Font.GothamBold
-_call301.TextSize = 14
-_call301.Parent = _call217
-
-
-local _call307 = Instance.new('UICorner', _call301)
-
-
-_call307.CornerRadius = UDim.new(0, 8)
-
-
-local _call311 = Instance.new('UIStroke', _call301)
-
-
-_call311.Thickness = 1
-_call311.Color = _call17
-_call311.Transparency = 0.5
-
-
-_call301.MouseButton1Click:Connect(function()
-    local _ = _call285.Text
-end)
-
-
-local _call318 = Instance.new('TextLabel')
-
-
-_call318.Size = UDim2.new(1, -20, 0, 20)
-_call318.Position = UDim2.new(0, 10, 0, 190)
-_call318.Text = 'Smoothness: 0 (Instant)'
-_call318.TextColor3 = _call21
-_call318.Font = Enum.Font.GothamBold
-_call318.TextSize = 14
-_call318.BackgroundTransparency = 1
-_call318.TextXAlignment = Enum.TextXAlignment.Left
-_call318.Parent = _call217
-
-
-local _call328 = Instance.new('Frame')
-
-
-_call328.Size = UDim2.new(1, -20, 0, 10)
-_call328.Position = UDim2.new(0, 10, 0, 210)
-_call328.BackgroundColor3 = _call15
-_call328.Parent = _call217
-
-
-local _call334 = Instance.new('UICorner', _call328)
-
-
-_call334.CornerRadius = UDim.new(0, 5)
-
-
-local _call338 = Instance.new('Frame')
-
-
-_call338.Size = UDim2.new(0, 0, 1, 0)
-_call338.BackgroundColor3 = _call19
-_call338.Parent = _call328
-
-
-local _call342 = Instance.new('UICorner', _call338)
-
-
-_call342.CornerRadius = UDim.new(0, 5)
-
-
-local _call346 = Instance.new('TextButton')
-
-
-_call346.Size = UDim2.new(1, 0, 1, 0)
-_call346.BackgroundTransparency = 1
-_call346.Text = ''
-_call346.Parent = _call328
-
-
-_call346.InputBegan:Connect(function(_352)
-    local _ = _352.UserInputType == Enum.UserInputType.MouseButton1
-    local _ = _352.UserInputType == Enum.UserInputType.Touch
-end)
-_call5.InputEnded:Connect(function(_364)
-    local _ = _364.UserInputType == Enum.UserInputType.MouseButton1
-    local _ = _364.UserInputType == Enum.UserInputType.Touch
-end)
-_call5.InputChanged:Connect(function(_376) end)
-
-
-local _call380 = Instance.new('TextButton')
-
-
-_call380.Size = UDim2.new(1, -20, 0, 40)
-_call380.Position = UDim2.new(0, 10, 0, 230)
-_call380.Text = 'Target: Head'
-_call380.BackgroundColor3 = _call15
-_call380.TextColor3 = _call21
-_call380.Font = Enum.Font.GothamBold
-_call380.TextSize = 14
-_call380.Parent = _call217
-
-
-local _call386 = Instance.new('UICorner', _call380)
-
-
-_call386.CornerRadius = UDim.new(0, 8)
-
-
-local _call390 = Instance.new('UIStroke', _call380)
-
-
-_call390.Thickness = 1
-_call390.Color = _call17
-_call390.Transparency = 0.5
-
-
-_call380.MouseButton1Click:Connect(function()
-    _call380.Text = 'Target: Torso'
-end)
-
-
-local _call398 = Instance.new('TextButton')
-
-
-_call398.Size = UDim2.new(1, -20, 0, 40)
-_call398.Position = UDim2.new(0, 10, 0, 275)
-_call398.Text = 'Team Check: ON'
-_call398.BackgroundColor3 = _call15
-_call398.TextColor3 = _call21
-_call398.Font = Enum.Font.GothamBold
-_call398.TextSize = 14
-_call398.Parent = _call217
-
-
-local _call404 = Instance.new('UICorner', _call398)
-
-
-_call404.CornerRadius = UDim.new(0, 8)
-
-
-local _call408 = Instance.new('UIStroke', _call398)
-
-
-_call408.Thickness = 1
-_call408.Color = _call17
-_call408.Transparency = 0.5
-
-
-_call398.MouseButton1Click:Connect(function()
-    _call398.Text = 'Team Check: OFF'
-    _call398.TextColor3 = _call25
-end)
-
-
-local _call416 = Instance.new('TextButton')
-
-
-_call416.Size = UDim2.new(1, -20, 0, 40)
-_call416.Position = UDim2.new(0, 10, 0, 320)
-_call416.Text = 'Wall Check: ON'
-_call416.BackgroundColor3 = _call15
-_call416.TextColor3 = _call21
-_call416.Font = Enum.Font.GothamBold
-_call416.TextSize = 14
-_call416.Parent = _call217
-
-
-local _call422 = Instance.new('UICorner', _call416)
-
-
-_call422.CornerRadius = UDim.new(0, 8)
-
-
-local _call426 = Instance.new('UIStroke', _call416)
-
-
-_call426.Thickness = 1
-_call426.Color = _call17
-_call426.Transparency = 0.5
-
-
-_call416.MouseButton1Click:Connect(function()
-    _call416.Text = 'Wall Check: OFF'
-    _call416.TextColor3 = _call25
-end)
-
-
-local _call434 = Instance.new('TextButton')
-
-
-_call434.Size = UDim2.new(1, -20, 0, 40)
-_call434.Position = UDim2.new(0, 10, 0, 0)
-_call434.Text = 'Tracers: OFF'
-_call434.BackgroundColor3 = _call15
-_call434.TextColor3 = _call21
-_call434.Font = Enum.Font.GothamBold
-_call434.TextSize = 14
-_call434.Parent = _call225
-
-
-local _call440 = Instance.new('UICorner', _call434)
-
-
-_call440.CornerRadius = UDim.new(0, 8)
-
-
-local _call444 = Instance.new('UIStroke', _call434)
-
-
-_call444.Thickness = 1
-_call444.Color = _call17
-_call444.Transparency = 0.5
-
-
-_call434.MouseButton1Click:Connect(function()
-    _call434.Text = 'Tracers: ON'
-    _call434.BackgroundColor3 = _call17
-    _call434.TextColor3 = Color3.new(0, 0, 0)
-end)
-
-
-local _call454 = Instance.new('TextButton')
-
-
-_call454.Size = UDim2.new(1, -20, 0, 40)
-_call454.Position = UDim2.new(0, 10, 0, 50)
-_call454.Text = 'Names: OFF'
-_call454.BackgroundColor3 = _call15
-_call454.TextColor3 = _call21
-_call454.Font = Enum.Font.GothamBold
-_call454.TextSize = 14
-_call454.Parent = _call225
-
-
-local _call460 = Instance.new('UICorner', _call454)
-
-
-_call460.CornerRadius = UDim.new(0, 8)
-
-
-local _call464 = Instance.new('UIStroke', _call454)
-
-
-_call464.Thickness = 1
-_call464.Color = _call17
-_call464.Transparency = 0.5
-
-
-_call454.MouseButton1Click:Connect(function()
-    _call454.Text = 'Names: ON'
-    _call454.BackgroundColor3 = _call17
-    _call454.TextColor3 = Color3.new(0, 0, 0)
-end)
-
-
-local _call474 = Instance.new('TextButton')
-
-
-_call474.Size = UDim2.new(1, -20, 0, 40)
-_call474.Position = UDim2.new(0, 10, 0, 100)
-_call474.Text = 'Chams: OFF'
-_call474.BackgroundColor3 = _call15
-_call474.TextColor3 = _call21
-_call474.Font = Enum.Font.GothamBold
-_call474.TextSize = 14
-_call474.Parent = _call225
-
-
-local _call480 = Instance.new('UICorner', _call474)
-
-
-_call480.CornerRadius = UDim.new(0, 8)
-
-
-local _call484 = Instance.new('UIStroke', _call474)
-
-
-_call484.Thickness = 1
-_call484.Color = _call17
-_call484.Transparency = 0.5
-
-
-_call474.MouseButton1Click:Connect(function()
-    _call474.Text = 'Chams: ON'
-    _call474.BackgroundColor3 = _call17
-    _call474.TextColor3 = Color3.new(0, 0, 0)
-end)
-
-
-local _call494 = Instance.new('TextButton')
-
-
-_call494.Size = UDim2.new(1, -20, 0, 40)
-_call494.Position = UDim2.new(0, 10, 0, 150)
-_call494.Text = 'Team Check: ON'
-_call494.BackgroundColor3 = _call15
-_call494.TextColor3 = _call21
-_call494.Font = Enum.Font.GothamBold
-_call494.TextSize = 14
-_call494.Parent = _call225
-
-
-local _call500 = Instance.new('UICorner', _call494)
-
-
-_call500.CornerRadius = UDim.new(0, 8)
-
-
-local _call504 = Instance.new('UIStroke', _call494)
-
-
-_call504.Thickness = 1
-_call504.Color = _call17
-_call504.Transparency = 0.5
-
-
-_call494.MouseButton1Click:Connect(function()
-    _call494.Text = 'Team Check: OFF'
-    _call494.TextColor3 = _call25
-end)
-_call109.MouseButton1Click:Connect(function()
-    _call85.Visible = false
-end)
-game:GetService('RunService').RenderStepped:Connect(function()
-    _call77.Position = (_workspaceCurrentCamera10.ViewportSize / 2)
-
-
-    error('internal 557: <25ms: infinitelooperror>')
-end)
-
-_call9.PlayerRemoving:Connect(function(_523) end)
-
