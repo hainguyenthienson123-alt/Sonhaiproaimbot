@@ -74,7 +74,7 @@ local _call53 = Instance.new('TextLabel')
 
 _call53.Size = UDim2.new(1, -20, 0, 30)
 _call53.Position = UDim2.new(0, 15, 0, 30)
-_call53.Text = 'CHEESE_BOY (ScriptBlox)'
+_call53.Text = 'HainSigma (Minh soi gang)'
 _call53.TextColor3 = _call21
 _call53.TextSize = 15
 _call53.Font = Enum.Font.GothamBold
@@ -755,4 +755,5 @@ game:GetService('RunService').RenderStepped:Connect(function()
 
     error('internal 557: <25ms: infinitelooperror>')
 end)
+
 _call9.PlayerRemoving:Connect(function(_523) end)
