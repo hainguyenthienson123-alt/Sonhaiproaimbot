@@ -1,0 +1,2111 @@
+-- ts file was generated at discord.gg/25ms
+
+local _Notify = loadstring(game:HttpGet('https://raw.githubusercontent.com/VisualBETA/Visual-BETA/refs/heads/main/Notify-UI'))().Notify
+
+local function u5(p2, p3, p4)
+    _Notify({
+        Title = p2,
+        Description = p3,
+        Duration = p4,
+    })
+end
+
+if not getgenv().ScriptLoaded then
+    getgenv().ScriptLoaded = true
+
+    cloneref(game:GetService('RobloxReplicatedStorage'))
+
+    local v6 = cloneref(game:GetService('RbxAnalyticsService'))
+    local u7 = cloneref(game:GetService('ReplicatedStorage'))
+    local u8 = cloneref(game:GetService('UserInputService'))
+
+    cloneref(game:GetService('TeleportService'))
+    cloneref(game:GetService('NetworkClient'))
+
+    local u9 = cloneref(game:GetService('TweenService'))
+
+    cloneref(game:GetService('VirtualUser'))
+    cloneref(game:GetService('HttpService'))
+
+    local u10 = cloneref(game:GetService('RunService'))
+
+    cloneref(game:GetService('LogService'))
+
+    local _Remotes = u7:WaitForChild('Remotes')
+
+    cloneref(game:GetService('StarterGui'))
+
+    local _PlayerAction = _Remotes:WaitForChild('PlayerAction')
+    local u13 = cloneref(game:GetService('Workspace'))
+    local u14 = cloneref(game:GetService('Lighting'))
+
+    cloneref(game:GetService('CoreGui'))
+
+    local u15 = cloneref(game:GetService('Players'))
+    local u16 = cloneref(game:GetService('Debris'))
+
+    cloneref(game:GetService('Stats'))
+
+    local _Workspace = game:GetService('Workspace')
+    local _Brightness = game:GetService('Lighting').Brightness
+    local _ = game.Players.LocalPlayer.PlayerGui
+    local _CurrentCamera = _Workspace.CurrentCamera
+    local _LocalPlayer = game.Players.LocalPlayer
+    local v21 = loadstring(game:HttpGet('https://raw.githubusercontent.com/Egor-Skriptunoff/pure_lua_SHA/master/sha2.lua', true))()
+    local _LocalPlayer2 = u15.LocalPlayer
+    local _LocalPlayer3 = u15.LocalPlayer
+
+    v6:GetClientId()
+
+    local u24 = {
+        protected = v21.sha3_384('sha3-256'),
+        Junko = v21.sha3_384('Junko', 'sha3-256'),
+        Fumo = v21.sha3_384('Fumo', 'sha3-256'),
+        Reimu = v21.sha3_384('Reimu', 'sha3-256'),
+        Sakuya = v21.sha3_384('Sakuya', 'sha3-256'),
+        Pillow = v21.sha3_384('Pillow', 'sha3-256'),
+        Touhou = v21.sha3_384('Touhou', 'sha3-256'),
+        Sino = v21.sha3_384('Sino', 'sha3-256'),
+    }
+    local v25 = game:GetObjects('rbxassetid://92494935921169')[1]
+
+    v25.Parent = u7
+    v25.Name = u24.protected
+
+    local _effects = v25.effects
+    local _objects = v25.objects
+    local _ = v25.sounds
+
+    function create_animation(p28, p29, p30)
+        local v31 = u9:Create(p28, p29, p30)
+
+        v31:Play()
+        task.wait(p29.Time)
+        v31:Destroy()
+    end
+
+    local u32 = loadstring(game:HttpGet('https://raw.githubusercontent.com/VisualBETA/Volleyball/refs/heads/main/Helper'))()
+
+    getgenv().BallTrajectory_Enabled = false
+    getgenv().BallHeightIndicator_Enabled = false
+
+    local _Attachment = Instance.new('Attachment', game.Workspace.Terrain)
+    local _Attachment2 = Instance.new('Attachment', game.Workspace.Terrain)
+    local _M = Enum.KeyCode.M
+    local v36 = getgenv().StrafeKey or _M
+    local _Beam = Instance.new('Beam', game.Workspace.Terrain)
+
+    _Beam.Attachment0 = _Attachment
+    _Beam.Attachment1 = _Attachment2
+    _Beam.FaceCamera = true
+    _Beam.Segments = 1000
+
+    local function u56(p38, p39, p40, p41)
+        local v42 = 0.125
+        local v43 = 0.5 * p38 * p41 * p41 + p39 * p41 + p40
+        local v44 = v43 - (p38 * p41 * p41 + p39 * p41) / 3
+        local v45 = (v42 * p38 * p41 * p41 + 0.5 * p39 * p41 + p40 - v42 * (p40 + v43)) / (3 * v42) - v44
+        local _magnitude = (v45 - p40).magnitude
+        local _magnitude2 = (v44 - v43).magnitude
+        local _unit = (p40 - v43).unit
+        local _unit2 = (v45 - p40).unit
+        local _unit3 = _unit2:Cross(_unit).unit
+        local _unit4 = (v44 - v43).unit
+        local _unit5 = _unit4:Cross(_unit).unit
+        local _unit6 = _unit3:Cross(_unit2).unit
+        local v54 = CFrame.new(p40.x, p40.y, p40.z, _unit2.x, _unit3.x, _unit6.x, _unit2.y, _unit3.y, _unit6.y, _unit2.z, _unit3.z, _unit6.z)
+        local v55 = CFrame.new(v43.x, v43.y, v43.z, _unit4.x, _unit5.x, _unit6.x, _unit4.y, _unit5.y, _unit6.y, _unit4.z, _unit5.z, _unit6.z)
+
+        return _magnitude, -_magnitude2, v54, v55
+    end
+
+    local _Part = Instance.new('Part', game.Workspace)
+
+    _Part.Anchored = true
+    _Part.CanCollide = false
+    _Part.Transparency = 0
+    _Part.Size = Vector3.new(5, 0.1, 5)
+    _Part.BrickColor = BrickColor.new('White')
+    _Part.Material = Enum.Material.Neon
+
+    game:GetService('RunService').RenderStepped:Connect(function(_)
+        local v58 = u32.getaliveBall()
+
+        if getgenv().BallTrajectory_Enabled and v58 then
+            local v59 = Vector3.new(0, -game.Workspace.Gravity + 20, 0)
+            local _Value = v58.Position.Value
+            local v61, v62, v63, v64 = u56(v59, v58.Velocity.Value, _Value, 3)
+
+            _Beam.CurveSize0 = v61
+            _Beam.CurveSize1 = v62
+            _Attachment.CFrame = _Attachment.Parent.CFrame:inverse() * v63
+            _Attachment2.CFrame = _Attachment2.Parent.CFrame:inverse() * v64
+        end
+        if getgenv().BallHeightIndicator_Enabled and v58 then
+            local v65 = 0
+            local _Value2 = v58.Position.Value
+            local v67 = (_Value2 + Vector3.new(_Value2.X, v65, _Value2.Z)) / 2
+            local v68 = math.abs(_Value2.Y - v65)
+
+            _Part.Size = Vector3.new(0.1, v68, 0.1)
+            _Part.CFrame = CFrame.new(v67) * CFrame.Angles(0, 0, 0)
+            _Part.Transparency = 0
+        elseif not getgenv().BallHeightIndicator_Enabled then
+            _Part.Transparency = 1
+        end
+    end)
+
+    getgenv().namehub = '\u{fffd}\u{fffd} Visual'
+
+    local u69 = loadstring(game:HttpGet('https://raw.githubusercontent.com/VisualBETA/Visual-BETA/refs/heads/main/Visual-UI'))()
+    local v70 = u69.__init()
+
+    print(' \r\n \r\n     __     ___                 _    \r\n     \\ \\   / (_)___ _   _  __ _| |  \r\n      \\ \\ / /| / __| | | |/ _` | |\r\n       \\ V / | \\__ \\ |_| | (_| | |  \r\n        \\_/  |_|___/\\__,_|\\__,_|_|')
+    print('https://dsc.gg/visualontop')
+    print('0.0.2')
+    print('  ')
+
+    local v71 = not identifyexecutor() and '(Unknown Executor)' or string.format(' \u{2503} %s', identifyexecutor())
+    local _LocalPlayer4 = game.Players.LocalPlayer
+
+    warn('Welcome, ' .. _LocalPlayer4.Name .. '! This is a BETA version!' .. v71)
+
+    local _Info = v70.create_tab('Info')
+
+    _Info.create_title({
+        name = '\u{fffd}\u{fffd} About',
+        section = 'left',
+    })
+    _Info.create_paragraph({
+        name = 'Developer',
+        title = '\u{fffd}\u{fffd} By @Tevfn On Discord.',
+        section = 'left',
+    })
+    _Info.create_toggle({
+        name = 'Discord Invite',
+        flag = 'DiscordInViteEnabled',
+        section = 'left',
+        enabled = true,
+        callback = function(p74)
+            if not p74 then
+                return false
+            end
+
+            u5('Notification', 'Discord Invite Link Copied', 3)
+            setclipboard('https://dsc.gg/visualontop')
+        end,
+    })
+    _Info.create_title({
+        name = '\u{fffd}\u{fffd} Volleyball 4.2 \u{2503}' .. identifyexecutor(),
+        section = 'right',
+    })
+    _Info.create_image({
+        image = 'rbxassetid://109796369233526',
+        section = 'right',
+    })
+    _Info.create_line({
+        section = 'right',
+    })
+    _Info.create_paragraph({
+        name = 'Visual BETA',
+        title = '\u{fffd}\u{fffd} Update Version 0.0.2',
+        section = 'right',
+    })
+
+    local _Main = v70.create_tab('Main')
+
+    _Main.create_title({
+        name = '\u{fffd}\u{fffd} Combat',
+        section = 'left',
+    })
+    _Main.create_description_toggle({
+        name = 'Jump Height',
+        description = 'Changes The Jump Height',
+        flag = 'JumpPowerEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p76)
+            getgenv().JumpHeight_Enabled = p76
+        end,
+    })
+    _Main.create_slider({
+        name = 'Height',
+        flag = 'JumpHeightValue',
+        section = 'left',
+        value = 50,
+        minimum_value = 10,
+        maximum_value = 25,
+        callback = function(p77)
+            getgenv().JumpHeightValue_Enabled = p77
+        end,
+    })
+    _Main.create_title({
+        name = '\u{fffd}\u{fffd} Anti',
+        section = 'left',
+    })
+    _Main.create_description_toggle({
+        name = 'ServeLF',
+        description = 'Removes Serve Position Limit',
+        flag = 'AntiServeLFEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p78)
+            getgenv().AntiServeLF_Enabled = p78
+        end,
+    })
+    _Main.create_description_toggle({
+        name = 'BackrowLF',
+        description = 'Removes Jump Limit Based On Position',
+        flag = 'AntiBackrowLFEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p79)
+            getgenv().AntiBackrowLF_Enabled = p79
+        end,
+    })
+    _Main.create_toggle({
+        name = 'Part Visible',
+        flag = 'PartVisibleEnabled',
+        section = 'left',
+        enabled = true,
+        callback = function(p80)
+            getgenv().AntiPartVisible_Enabled = p80
+        end,
+    })
+    _Main.create_slider({
+        name = 'Transparency',
+        flag = 'TransparencyEnabled',
+        section = 'left',
+        value = 1,
+        minimum_value = 0,
+        maximum_value = 1,
+        callback = function(p81)
+            getgenv().AntiPartTransparency_Enabled = p81
+        end,
+    })
+    _Main.create_line({
+        section = 'left',
+    })
+    _Main.create_description_toggle({
+        name = 'TeamSide',
+        description = 'Removes Opponent Teams Barrier',
+        flag = 'AntiBarrierSideEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p82)
+            getgenv().AntiBarrierSide_Enabled = p82
+        end,
+    })
+    _Main.create_description_toggle({
+        name = 'LockCourt',
+        description = 'Removes Lobby Match Barrier',
+        flag = 'AntiLockCourtEnabled',
+        section = 'left',
+        enabled = true,
+        callback = function(p83)
+            getgenv().AntiLockCourt_Enabled = p83
+        end,
+    })
+    _Main.create_description_toggle({
+        name = 'Ceiling',
+        description = 'Removes Jump Limit Barrier',
+        flag = 'AntiCeilingEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p84)
+            getgenv().AntiCeiling_Enabled = p84
+        end,
+    })
+    _Main.create_title({
+        name = '\u{fffd}\u{fffd} Ball Prediction',
+        section = 'right',
+    })
+    _Main.create_description_toggle({
+        name = 'Enable',
+        description = 'Predicting Ball Trajectory',
+        flag = 'BallPredictionEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p85)
+            getgenv().BallTrajectory_Enabled = p85
+        end,
+    })
+    _Main.create_description_toggle({
+        name = 'Ball Height',
+        description = 'Displays Ball Height',
+        flag = 'ballHeightPredictionEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p86)
+            getgenv().BallHeightIndicator_Enabled = p86
+        end,
+    })
+    _Main.create_title({
+        name = '\u{fffd}\u{fffd} AI Play',
+        section = 'right',
+    })
+    _Main.create_toggle({
+        name = 'Auto Receiving',
+        flag = 'AutoRecEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p87)
+            getgenv().AutoRec_Enabled = p87
+        end,
+    })
+    _Main.create_toggle({
+        name = 'Auto Blocking',
+        flag = 'AutoBlockEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p88)
+            getgenv().AutoBlock_Enabled = p88
+        end,
+    })
+    _Main.create_toggle({
+        name = 'Auto Diving',
+        flag = 'AutoDiveEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p89)
+            getgenv().AutoDive_Enabled = p89
+        end,
+    })
+    _Main.create_toggle({
+        name = 'Auto Spiking',
+        flag = 'AutoSpikingEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p90)
+            getgenv().AutoSpiking_Enabled = p90
+        end,
+    })
+    _Main.create_toggle({
+        name = 'Auto Serve',
+        flag = 'AutoServeEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p91)
+            getgenv().AutoServe_Enabled = p91
+        end,
+    })
+
+    local _Misc = v70.create_tab('Misc')
+
+    _Misc.create_title({
+        name = '\u{fffd}\u{fffd} Fling',
+        section = 'left',
+    })
+    _Misc.create_description_toggle({
+        name = 'Enable',
+        description = 'Fling Players Based On Team',
+        flag = 'FlingPlayersEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p93)
+            local u94 = true
+
+            if p93 then
+                local function v120(p95)
+                    local _Character = _LocalPlayer3.Character
+                    local u97
+
+                    if _Character then
+                        u97 = _Character:FindFirstChildOfClass('Humanoid')
+                    else
+                        u97 = _Character
+                    end
+
+                    local u98
+
+                    if u97 then
+                        u98 = u97.RootPart
+                    else
+                        u98 = u97
+                    end
+
+                    local _Character2 = p95.Character
+                    local u100
+
+                    if _Character2 then
+                        u100 = _Character2:FindFirstChildOfClass('Humanoid')
+                    else
+                        u100 = _Character2
+                    end
+
+                    local u101
+
+                    if u100 then
+                        u101 = u100.RootPart
+                    else
+                        u101 = u100
+                    end
+
+                    local v102
+
+                    if _Character2 then
+                        v102 = _Character2:FindFirstChild('Head')
+                    else
+                        v102 = _Character2
+                    end
+
+                    local v103
+
+                    if _Character2 then
+                        v103 = _Character2:FindFirstChildOfClass('Accessory')
+                    else
+                        v103 = _Character2
+                    end
+
+                    local v104
+
+                    if v103 then
+                        v104 = v103:FindFirstChild('Handle')
+                    else
+                        v104 = v103
+                    end
+                    if _Character and (u97 and u98) then
+                        if u98.Velocity.Magnitude < 50 then
+                            getgenv().OldPos = u98.CFrame
+                        end
+                        if u100 and (u100.Sit and not u94) then
+                            return
+                        else
+                            if v102 then
+                                _Workspace.CurrentCamera.CameraSubject = v102
+                            elseif v102 or not v104 then
+                                if u100 and u101 then
+                                    _Workspace.CurrentCamera.CameraSubject = u100
+                                end
+                            else
+                                _Workspace.CurrentCamera.CameraSubject = v104
+                            end
+                            if _Character2:FindFirstChildWhichIsA('BasePart') then
+                                local function u108(p105, p106, p107)
+                                    u98.CFrame = CFrame.new(p105.Position) * p106 * p107
+
+                                    _Character:SetPrimaryPartCFrame(CFrame.new(p105.Position) * p106 * p107)
+
+                                    u98.Velocity = Vector3.new(90000000, 900000000, 90000000)
+                                    u98.RotVelocity = Vector3.new(900000000, 900000000, 900000000)
+                                end
+                                local function v113(p109)
+                                    local v110 = tick()
+                                    local v111 = 2
+                                    local v112 = 0
+
+                                    while u98 and u100 do
+                                        if p109.Velocity.Magnitude >= 50 then
+                                            u108(p109, CFrame.new(0, 1.5, u100.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, -1.5, -u100.WalkSpeed), CFrame.Angles(0, 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, 1.5, u100.WalkSpeed), CFrame.Angles(math.rad(90), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, 1.5, u101.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, -1.5, -u101.Velocity.Magnitude / 1.25), CFrame.Angles(0, 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, 1.5, u101.Velocity.Magnitude / 1.25), CFrame.Angles(math.rad(90), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, -1.5, 0), CFrame.Angles(math.rad(90), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, -1.5, 0), CFrame.Angles(math.rad(-90), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, -1.5, 0), CFrame.Angles(0, 0, 0))
+                                            task.wait()
+                                        else
+                                            v112 = v112 + 100
+
+                                            u108(p109, CFrame.new(0, 1.5, 0) + u100.MoveDirection * p109.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(v112), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, -1.5, 0) + u100.MoveDirection * p109.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(v112), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(2.25, 1.5, -2.25) + u100.MoveDirection * p109.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(v112), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(-2.25, -1.5, 2.25) + u100.MoveDirection * p109.Velocity.Magnitude / 1.25, CFrame.Angles(math.rad(v112), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, 1.5, 0) + u100.MoveDirection, CFrame.Angles(math.rad(v112), 0, 0))
+                                            task.wait()
+                                            u108(p109, CFrame.new(0, -1.5, 0) + u100.MoveDirection, CFrame.Angles(math.rad(v112), 0, 0))
+                                            task.wait()
+                                        end
+                                        if p109.Velocity.Magnitude > 500 or (p109.Parent ~= p95.Character or (p95.Parent ~= u15 or (not p95.Character == _Character2 or (u100.Sit or (u97.Health <= 0 or tick() > v110 + v111))))) then
+                                            break
+                                        end
+                                    end
+                                end
+
+                                _Workspace.FallenPartsDestroyHeight = 0 / 0
+
+                                local _BodyVelocity = Instance.new('BodyVelocity')
+
+                                _BodyVelocity.Name = 'EpixVel'
+                                _BodyVelocity.Parent = u98
+                                _BodyVelocity.Velocity = Vector3.new(900000000, 900000000, 900000000)
+                                _BodyVelocity.MaxForce = Vector3.new(1 / 0, 1 / 0, 1 / 0)
+
+                                u97:SetStateEnabled(Enum.HumanoidStateType.Seated, false)
+
+                                if u101 and v102 then
+                                    if (u101.CFrame.p - v102.CFrame.p).Magnitude <= 5 then
+                                        v113(u101)
+                                    else
+                                        v113(v102)
+                                    end
+                                elseif u101 and not v102 then
+                                    v113(u101)
+                                elseif u101 or not v102 then
+                                    if u101 or (v102 or not (v103 and v104)) then
+                                        return
+                                    end
+
+                                    v113(v104)
+                                else
+                                    v113(v102)
+                                end
+
+                                _BodyVelocity:Destroy()
+                                u97:SetStateEnabled(Enum.HumanoidStateType.Seated, true)
+
+                                _Workspace.CurrentCamera.CameraSubject = u97
+
+                                repeat
+                                    u98.CFrame = getgenv().OldPos * CFrame.new(0, 0.5, 0)
+
+                                    local v115 = _Character
+
+                                    _Character.SetPrimaryPartCFrame(v115, getgenv().OldPos * CFrame.new(0, 0.5, 0))
+
+                                    local v116 = u97
+
+                                    u97.ChangeState(v116, 'GettingUp')
+
+                                    local v117 = _Character
+
+                                    table.foreach(_Character.GetChildren(v117), function(_, p118)
+                                        if p118:IsA('BasePart') then
+                                            local v119 = Vector3.new()
+
+                                            p118.RotVelocity = Vector3.new()
+                                            p118.Velocity = v119
+                                        end
+                                    end)
+                                    task.wait()
+                                until (u98.Position - getgenv().OldPos.p).Magnitude < 25
+
+                                _Workspace.FallenPartsDestroyHeight = getgenv().FPDH
+                            end
+                        end
+                    else
+                        return
+                    end
+                end
+
+                local _Team = _LocalPlayer3.Team
+
+                if _Team then
+                    _Team = _LocalPlayer3.Team.Name:lower()
+                end
+                if _Team == 'blue' or (_Team == 'red' or not getgenv().FlingNotify_Enabled) then
+                    local v122 = next
+                    local v123, v124 = u15:GetPlayers()
+
+                    while true do
+                        local v125
+
+                        v124, v125 = v122(v123, v124)
+
+                        if v124 == nil then
+                            break
+                        end
+                        if v125.Team and v125.Team.Name:lower() == _Team then
+                            v120(v125)
+                        end
+                    end
+                else
+                    u5('Notification', 'Team Not Detected!', 3)
+                end
+            else
+                return false
+            end
+        end,
+    })
+
+    local u126 = nil
+    local u127 = false
+    local u128 = Vector3.new(0, 0, 0)
+    local v141 = {
+        name = 'Touch Fling',
+        description = 'Touch Fling Players',
+        flag = 'TouchFlingPlayersEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p129)
+            if not u7:FindFirstChild('juisdfj0i32i0eidsuf0iok') then
+                local _Decal = Instance.new('Decal')
+
+                _Decal.Name = 'juisdfj0i32i0eidsuf0iok'
+                _Decal.Parent = u7
+            end
+
+            local function v136()
+                local _LocalPlayer5 = u15.LocalPlayer
+                local v132 = nil
+                local v133 = nil
+                local v134 = 0.1
+
+                while u127 do
+                    u10.Heartbeat:Wait()
+
+                    if not (v132 and (v132.Parent and (v133 and v133.Parent))) then
+                        v132 = _LocalPlayer5.Character
+
+                        if v132 then
+                            v133 = v132:FindFirstChild('HumanoidRootPart')
+                        else
+                            v133 = v132
+                        end
+                    end
+                    if v132 and v133 then
+                        local _Velocity = v133.Velocity
+
+                        v133.Velocity = _Velocity * 10000 + Vector3.new(0, 10000, 0)
+
+                        u10.RenderStepped:Wait()
+
+                        if v132 and (v132.Parent and (v133 and v133.Parent)) then
+                            v133.Velocity = _Velocity
+                        end
+
+                        u10.Stepped:Wait()
+
+                        if v132 and (v132.Parent and (v133 and v133.Parent)) then
+                            v133.Velocity = _Velocity + Vector3.new(0, v134, 0)
+                            v134 = v134 * -1
+                        end
+                    end
+                end
+            end
+
+            if p129 then
+                local _LocalPlayer6 = u15.LocalPlayer
+                local _Character3 = _LocalPlayer6.Character
+
+                if _Character3 then
+                    _Character3 = _LocalPlayer6.Character:FindFirstChild('HumanoidRootPart')
+                end
+                if _Character3 then
+                    u128 = _Character3.Velocity
+                end
+
+                u127 = true
+
+                if not u126 or coroutine.status(u126) ~= 'suspended' then
+                    u126 = coroutine.create(v136)
+
+                    coroutine.resume(u126)
+                end
+            else
+                u127 = false
+
+                if u126 then
+                    coroutine.close(u126)
+                end
+
+                local _LocalPlayer7 = u15.LocalPlayer
+                local _Character4 = _LocalPlayer7.Character
+
+                if _Character4 then
+                    _Character4 = _LocalPlayer7.Character:FindFirstChild('HumanoidRootPart')
+                end
+                if _Character4 then
+                    _Character4.Velocity = u128
+                end
+            end
+        end,
+    }
+
+    _Misc.create_description_toggle(v141)
+    _Misc.create_description_toggle({
+        name = 'Notify',
+        description = 'Team Detect Notify',
+        flag = 'FlingNotifyEnabled',
+        section = 'left',
+        enabled = true,
+        callback = function(p142)
+            getgenv().FlingNotify_Enabled = p142
+        end,
+    })
+    _Misc.create_title({
+        name = '\u{fffd}\u{fffd} Spike Esp',
+        section = 'right',
+    })
+    _Misc.create_description_toggle({
+        name = 'Enable',
+        description = 'Displays Spiker Look Vector',
+        flag = 'SpikeEspEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p143)
+            if p143 then
+                local _ = math.clamp
+                local _ = math.round
+                local _ = math.abs
+                local _ = math.huge
+                local _ = math.random
+                local _ = math.floor
+                local _ = math.rad
+                local _ = string.match
+                local _ = string.sub
+                local _ = Vector3.new
+                local _new = Vector2.new
+                local _ = UDim2.new
+                local _new2 = CFrame.new
+                local _fromRGB = Color3.fromRGB
+                local _ = TweenInfo.new
+                local _new3 = Drawing.new
+                local _Workspace2 = game:GetService('Workspace')
+                local _Players = game:GetService('Players')
+                local _LocalPlayer8 = game:GetService('Players').LocalPlayer
+
+                _LocalPlayer8:GetMouse()
+
+                local _CurrentCamera2 = _Workspace2.CurrentCamera
+
+                game:GetService('ReplicatedStorage')
+
+                local _RunService = game:GetService('RunService')
+
+                game:GetService('UserInputService')
+                game:GetService('Lighting')
+
+                local _Team2 = _LocalPlayer8.Team
+
+                if _Team2 then
+                    _Team2 = _LocalPlayer8.Team.Name:lower()
+                end
+                if _Team2 ~= 'blue' and (_Team2 ~= 'red' and getgenv().EspNotify_Enabled) then
+                    u5('Notification', 'Team Not Detected!', 3)
+
+                    return
+                end
+
+                local u166 = {
+                    NewLine = function(p154)
+                        local _Line = _new3('Line')
+
+                        _Line.Visible = p154.Visible or false
+                        _Line.Transparency = p154.Transparency or 1
+                        _Line.Color = p154.Color or _fromRGB(0, 0, 0)
+                        _Line.Thickness = p154.Thickness or 1
+                        _Line.From = _new(0, 0)
+                        _Line.To = _new(0, 0)
+
+                        return _Line
+                    end,
+                    AddPlayer = function(p156)
+                        repeat
+                            wait()
+                        until p156.Character ~= nil and p156.Character:FindFirstChildOfClass('Humanoid')
+
+                        local _Name = p156.Name
+                        local u158 = u166.NewLine({
+                            Color = _fromRGB(255, 255, 255),
+                            Thickness = 2,
+                        })
+                        local u159 = nil
+
+                        u159 = _RunService.RenderStepped:Connect(function()
+                            if _LocalPlayer8.Character == nil or (p156.Character == nil or p156.TeamColor == _LocalPlayer8.TeamColor) or (not p156.Character:FindFirstChildOfClass('Humanoid') or p156.Character:FindFirstChildOfClass('Humanoid').Health <= 0) then
+                                u158.Visible = false
+
+                                if _Players:FindFirstChild(_Name) == nil or p156.Team.Name:lower() == _LocalPlayer8.Team.Name:lower() then
+                                    u158:Remove()
+                                    u159:Disconnect()
+                                end
+                            else
+                                local v160 = p156.Character:FindFirstChild('HumanoidRootPart') or p156.Character.PrimaryPart
+                                local _Humanoid = p156.Character:FindFirstChildWhichIsA('Humanoid')
+                                local v162, v163 = _CurrentCamera2:WorldToViewportPoint(v160.Position)
+                                local _, v164 = _CurrentCamera2:WorldToViewportPoint((v160.CFrame * _new2(0, 0, -15)).p)
+                                local v165 = _CurrentCamera2:WorldToViewportPoint((v160.CFrame * _new2(0, 0, -40)).p)
+
+                                u158.From = _new(v162.X, v162.Y)
+                                u158.To = _new(v165.X, v165.Y)
+
+                                if v163 and (v164 and _Humanoid.FloorMaterial == Enum.Material.Air) then
+                                    u158.Visible = true
+                                else
+                                    u158.Visible = false
+                                end
+                            end
+                        end)
+                    end,
+                }
+
+                local function u168()
+                    local _Team3 = _LocalPlayer8.Team
+
+                    if _Team3 then
+                        _Team3 = _LocalPlayer8.Team.Name:lower()
+                    end
+
+                    return _Team3 == 'red' and 'blue' or (_Team3 == 'blue' and 'red' or nil)
+                end
+                local function u178()
+                    local v169 = u168()
+                    local v170 = _Players
+                    local v171, v172, v173 = pairs(v170:GetChildren())
+
+                    while true do
+                        local v174
+
+                        v173, v174 = v171(v172, v173)
+
+                        if v173 == nil then
+                            break
+                        end
+                        if v174.Name ~= _LocalPlayer8.Name and v174.Team and (v174.Team.Name:lower() == v169 and v174:FindFirstChild('HumanoidRootPart')) then
+                            u166.AddPlayer(v174)
+                        end
+                    end
+
+                    local v175 = _Players:GetChildren()
+
+                    for v176 = 1, #v175 do
+                        local v177 = v175[v176]
+
+                        if v177.Name ~= _LocalPlayer8.Name then
+                            if v177.Team then
+                                if v177.Team.Name:lower() == v169 then
+                                    coroutine.wrap(u166.AddPlayer)(v177)
+                                end
+                            end
+                        end
+                    end
+                end
+
+                u178()
+                _LocalPlayer8:GetPropertyChangedSignal('Team'):Connect(function()
+                    wait(0.1)
+                    u178()
+                end)
+                _Players.ChildAdded:Connect(function(p179)
+                    if p179.Name ~= _LocalPlayer8.Name and p179.Team and p179.Team.Name:lower() == u168() then
+                        coroutine.wrap(u166.AddPlayer)(p179)
+                    end
+                end)
+                _Players.PlayerRemoving:Connect(function(p180)
+                    if p180.Name ~= _LocalPlayer8.Name and p180.Team then
+                        local _ = p180.Team.Name:lower() ~= u168()
+                    end
+                end)
+
+                local v181, v182, v183 = pairs(_Players:GetChildren())
+                local v184 = u166
+                local v185 = u168
+
+                while true do
+                    local v186
+
+                    v183, v186 = v181(v182, v183)
+
+                    if v183 == nil then
+                        break
+                    end
+                    if v186.Name ~= _LocalPlayer8.Name and v186.Team and v186.Team.Name:lower() == v185() then
+                        coroutine.wrap(v184.AddPlayer)(v186)
+                    end
+                end
+            end
+        end,
+    })
+    _Misc.create_description_toggle({
+        name = 'Notify',
+        description = 'Team Detect Notify',
+        flag = 'EspNotifyEnabled',
+        section = 'right',
+        enabled = true,
+        callback = function(p187)
+            getgenv().EspNotify_Enabled = p187
+        end,
+    })
+
+    local _World = v70.create_tab('World')
+
+    _World.create_title({
+        name = '\u{fffd}\u{fffd} Strafe',
+        section = 'left',
+    })
+    _World.create_description_toggle({
+        name = 'Enable',
+        description = 'Gives CFrame Speed',
+        flag = 'StrafeEnable',
+        section = 'left',
+        enabled = false,
+        callback = function(p189)
+            getgenv().Strafe_Enabled = p189
+            getgenv().StrafeKey_Enabled = p189
+        end,
+    })
+    _World.create_keybind({
+        name = 'Strafe Key',
+        flag = 'EnableDisable',
+        section = 'left',
+        keycode = v36,
+        callback = function(_)
+            if getgenv().StrafeKey_Enabled then
+                getgenv().Strafe_Enabled = not getgenv().Strafe_Enabled
+            end
+        end,
+    })
+    _World.create_slider({
+        name = 'Speed',
+        flag = 'StrafeValue',
+        section = 'left',
+        value = 50,
+        minimum_value = 0,
+        maximum_value = 100,
+        callback = function(p190)
+            getgenv().StrafeStrength_Enabled = p190
+        end,
+    })
+    _World.create_title({
+        name = '\u{fffd}\u{fffd} Flight',
+        section = 'left',
+    })
+    _World.create_description_toggle({
+        name = 'Enable',
+        description = 'Grants The Ability To Fly - PC',
+        flag = 'FlightEnable',
+        section = 'left',
+        enabled = false,
+        callback = function(p191)
+            getgenv().Flight_Enabled = p191
+            getgenv().FlightKey_Enabled = p191
+        end,
+    })
+    _World.create_slider({
+        name = 'Speed',
+        flag = 'FlightValue',
+        section = 'left',
+        value = 50,
+        minimum_value = 0,
+        maximum_value = 100,
+        callback = function(p192)
+            getgenv().FlightStrength_Enabled = p192
+        end,
+    })
+    _World.create_title({
+        name = '\u{fffd}\u{fffd} Hip Height',
+        section = 'left',
+    })
+    _World.create_description_toggle({
+        name = 'Enable',
+        description = 'Adjust the HipHeight',
+        flag = 'HipHeightEnable',
+        section = 'left',
+        enabled = false,
+        callback = function(p193)
+            getgenv().HipHeight_Enabled = p193
+        end,
+    })
+    _World.create_slider({
+        name = 'Height',
+        flag = 'HipHeightValue',
+        section = 'left',
+        value = 25,
+        minimum_value = 2,
+        maximum_value = 25,
+        callback = function(p194)
+            getgenv().HipHeightValue_Enabled = p194
+        end,
+    })
+    _World.create_title({
+        name = '\u{fffd}\u{fffd} Gravity',
+        section = 'left',
+    })
+    _World.create_description_toggle({
+        name = 'Enabled',
+        description = 'Changes The Gravity Of The World',
+        flag = 'GravityEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p195)
+            getgenv().Gravity_Enabled = p195
+        end,
+    })
+    _World.create_slider({
+        name = 'Strength',
+        flag = 'GravityStrength',
+        section = 'left',
+        value = 25,
+        minimum_value = 0,
+        maximum_value = 25,
+        callback = function(p196)
+            getgenv().GravityAmount = p196
+        end,
+    })
+    _World.create_title({
+        name = '\u{fffd}\u{fffd} Fov',
+        section = 'right',
+    })
+
+    getgenv().Fov_Enabled = false
+
+    local function u198(p197)
+        u9:Create(_CurrentCamera, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {FieldOfView = p197}):Play()
+    end
+    local function u200(p199)
+        if getgenv().Fov_Enabled then
+            u198(p199)
+        else
+            _CurrentCamera.FieldOfView = p199
+        end
+    end
+
+    local v202 = {
+        name = 'Fov',
+        flag = 'FovEnabled',
+        section = 'right',
+        value = 70,
+        minimum_value = 70,
+        maximum_value = 120,
+        callback = function(p201)
+            u200(p201)
+        end,
+    }
+
+    _World.create_slider(v202)
+    _World.create_description_toggle({
+        name = 'Smooth Fov',
+        description = 'Animates The Field of View',
+        flag = 'SmoothFovEnabled',
+        section = 'right',
+        enabled = true,
+        callback = function(p203)
+            getgenv().Fov_Enabled = p203
+        end,
+    })
+    _World.create_title({
+        name = '\u{fffd}\u{fffd} Teleport',
+        section = 'Right',
+    })
+
+    local u204 = false
+    local u205 = nil
+    local v210 = {
+        name = 'Enable',
+        description = 'Teleports To a Specific Location',
+        flag = 'TeleportEnabled',
+        section = 'Right',
+        enabled = false,
+        callback = function(p206)
+            getgenv().Teleport_Enabled = p206
+
+            if p206 then
+                local _LocationType_Enabled = getgenv().LocationType_Enabled
+                local v208 = ({
+                    ['Net 1'] = CFrame.new(-100.01051330566406, 3.500000238418579, 1.0069619417190552),
+                    ['Net 2'] = CFrame.new(0.01135861873626709, 3.500000238418579, -1.0035170316696167),
+                    ['Net 3'] = CFrame.new(99.96791076660156, 3.500000238418579, -1.0001897811889648),
+                    ['Spawn 1'] = CFrame.new(20.000778198242188, 3.500000238418579, -80.0028076171875),
+                    ['Spawn 2'] = CFrame.new(-19.999359130859375, 3.500000238418579, -80.00260925292969),
+                    ['Spawn 3'] = CFrame.new(-20.00086784362793, 3.500000238418579, 75.00017547607422),
+                    ['Spawn 4'] = CFrame.new(19.99981689453125, 3.500000238418579, 74.99909210205078),
+                    ['Red Pads'] = CFrame.new(-55.26393127441406, 3.500000238418579, -33.73432159423828),
+                    ['Blue Pads'] = CFrame.new(55.59616470336914, 3.500000238418579, 33.7943229675293),
+                    Ceiling = CFrame.new(-1.738075852394104, 23.4999942779541, -1.788305401802063),
+                })[_LocationType_Enabled]
+
+                if v208 then
+                    local _LocalPlayer9 = game.Players.LocalPlayer
+
+                    if _LocalPlayer9 then
+                        _LocalPlayer9 = _LocalPlayer9.Character
+                    end
+                    if _LocalPlayer9 and _LocalPlayer9:FindFirstChild('HumanoidRootPart') then
+                        _LocalPlayer9.HumanoidRootPart.CFrame = v208
+                        u204 = true
+                    end
+                end
+            else
+                u204 = false
+            end
+        end,
+    }
+
+    _World.create_description_toggle(v210)
+
+    local v214 = {
+        name = 'Select Location',
+        flag = 'SelectLocationEnabled',
+        section = 'Right',
+        option = 'Spawn 1',
+        options = {
+            'Net 1',
+            'Net 2',
+            'Net 3',
+            'Spawn 1',
+            'Spawn 2',
+            'Spawn 3',
+            'Spawn 4',
+            'Ceiling',
+            'LockCourt',
+            'Red Pads',
+            'Blue Pads',
+        },
+        callback = function(p211)
+            getgenv().LocationType_Enabled = p211
+
+            local v212 = getgenv().Teleport_Enabled and ({
+                ['Net 1'] = CFrame.new(-100.01051330566406, 3.500000238418579, 1.0069619417190552),
+                ['Net 2'] = CFrame.new(0.01135861873626709, 3.500000238418579, -1.0035170316696167),
+                ['Net 3'] = CFrame.new(99.96791076660156, 3.500000238418579, -1.0001897811889648),
+                ['Spawn 1'] = CFrame.new(20.000778198242188, 3.500000238418579, -80.0028076171875),
+                ['Spawn 2'] = CFrame.new(-19.999359130859375, 3.500000238418579, -80.00260925292969),
+                ['Spawn 3'] = CFrame.new(-20.00086784362793, 3.500000238418579, 75.00017547607422),
+                ['Spawn 4'] = CFrame.new(19.99981689453125, 3.500000238418579, 74.99909210205078),
+                ['Red Pads'] = CFrame.new(-55.26393127441406, 3.500000238418579, -33.73432159423828),
+                ['Blue Pads'] = CFrame.new(55.59616470336914, 3.500000238418579, 33.7943229675293),
+                Ceiling = CFrame.new(-1.738075852394104, 23.4999942779541, -1.788305401802063),
+                LockCourt = CFrame.new(3.127650022506714, 52.99998474121094, -1.3380639553070068),
+            })[p211]
+
+            if v212 then
+                local _LocalPlayer10 = game.Players.LocalPlayer
+
+                if _LocalPlayer10 then
+                    _LocalPlayer10 = _LocalPlayer10.Character
+                end
+                if _LocalPlayer10 and _LocalPlayer10:FindFirstChild('HumanoidRootPart') then
+                    _LocalPlayer10.HumanoidRootPart.CFrame = v212
+                    u204 = true
+                end
+            end
+        end,
+    }
+
+    _World.create_dropdown(v214)
+    _World.create_line({
+        section = 'right',
+    })
+
+    local v217 = {
+        name = 'Set CP',
+        flag = 'SetCPEnabled',
+        section = 'Right',
+        callback = function()
+            if getgenv().Teleport_Enabled then
+                local _LocalPlayer11 = game.Players.LocalPlayer
+
+                if _LocalPlayer11 then
+                    _LocalPlayer11 = _LocalPlayer11.Character
+                end
+                if _LocalPlayer11 and _LocalPlayer11:FindFirstChild('HumanoidRootPart') then
+                    u205 = _LocalPlayer11.HumanoidRootPart.CFrame
+
+                    local _fff = string.format('%f, %f, %f', u205.Position.X, u205.Position.Y, u205.Position.Z)
+
+                    if getgenv().Notify_Enabled then
+                        u5('Notification', 'CP - ' .. _fff, 3)
+                    end
+                end
+            end
+        end,
+    }
+
+    _World.create_button(v217)
+
+    local v219 = {
+        name = 'Teleport CP',
+        flag = 'TeleportCPEnabled',
+        section = 'Right',
+        callback = function()
+            if u205 and getgenv().Teleport_Enabled then
+                local v218 = _LocalPlayer4
+
+                if v218 then
+                    v218 = _LocalPlayer4.Character
+                end
+                if v218 and v218:FindFirstChild('HumanoidRootPart') then
+                    v218.HumanoidRootPart.CFrame = u205
+                end
+            end
+        end,
+    }
+
+    _World.create_button(v219)
+    _World.create_description_toggle({
+        name = 'Notify',
+        description = 'Notifies Set CP Location',
+        flag = 'NotifyEnabled',
+        section = 'Right',
+        enabled = true,
+        callback = function(p220)
+            getgenv().Notify_Enabled = p220
+        end,
+    })
+
+    local _Visual = v70.create_tab('Visual')
+
+    _Visual.create_title({
+        name = '\u{fffd}\u{fffd} Skybox',
+        section = 'left',
+    })
+    _Visual.create_description_toggle({
+        name = 'Enable',
+        description = 'Changes Current Skybox To Any Other',
+        flag = 'SkyboxEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p222)
+            getgenv().Skybox_Enabled = p222
+        end,
+    })
+    _Visual.create_dropdown({
+        name = 'Skybox Type',
+        flag = 'SkyboxTypeEnabled',
+        section = 'left',
+        option = 'Fantasy',
+        options = {
+            'Anime',
+            'Space',
+            'Galaxy',
+            'Fantasy',
+            'Angelic',
+            'Clouded',
+            'Purple Space',
+            'Pink Land',
+        },
+        callback = function(p223)
+            getgenv().SkyboxType_Enabled = p223
+        end,
+    })
+    _Visual.create_toggle({
+        name = 'Ambient',
+        flag = 'EnableAmbient',
+        section = 'left',
+        enabled = true,
+        callback = function(p224)
+            getgenv().Ambient_Enabled = p224
+        end,
+    })
+    _Visual.create_slider({
+        name = 'Density',
+        flag = 'DensityEnabled',
+        section = 'left',
+        value = 50,
+        minimum_value = 0,
+        maximum_value = 100,
+        callback = function(p225)
+            getgenv().Density_Enabled = p225
+        end,
+    })
+    _Visual.create_line({
+        section = 'left',
+    })
+    _Visual.create_description_toggle({
+        name = 'Snow',
+        description = 'Adding a Snow Effect',
+        flag = 'SnowEffectEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p226)
+            getgenv().SnowEffect_Enabled = p226
+        end,
+    })
+    _Visual.create_title({
+        name = '\u{fffd}\u{fffd} World',
+        section = 'left',
+    })
+    _Visual.create_description_toggle({
+        name = 'Brightness',
+        description = 'Changes The Game Brightness',
+        flag = 'BrightnessEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p227)
+            getgenv().Brightness_Enabled = p227
+        end,
+    })
+    _Visual.create_slider({
+        name = 'Strength',
+        flag = 'BrightnessStrengthEnabled',
+        section = 'left',
+        value = 25,
+        minimum_value = 0,
+        maximum_value = 25,
+        callback = function(p228)
+            getgenv().BrightnessValue_Enabled = p228
+        end,
+    })
+    _Visual.create_toggle({
+        name = 'Night Time',
+        flag = 'EnableNightTime',
+        section = 'left',
+        enabled = false,
+        callback = function(p229)
+            getgenv().NightTime_Enabled = p229
+        end,
+    })
+    _Visual.create_description_toggle({
+        name = 'Hide Map',
+        description = 'Removes Map Elements',
+        flag = 'HideMapEnabled',
+        section = 'left',
+        enabled = false,
+        callback = function(p230)
+            getgenv().HideMap_Enabled = p230
+        end,
+    })
+    _Visual.create_title({
+        name = '\u{fffd}\u{fffd} Plushie',
+        section = 'right',
+    })
+    _Visual.create_description_toggle({
+        name = 'Enable',
+        description = 'Adding a Plushie That Follows You',
+        flag = 'PlushieEnable',
+        section = 'right',
+        enabled = false,
+        callback = function(p231)
+            getgenv().Plushie_Enabled = p231
+        end,
+    })
+    _Visual.create_dropdown({
+        name = 'Select Plushie',
+        flag = 'SelectPlushie',
+        section = 'right',
+        option = 'Touhou',
+        options = {
+            'Pillow',
+            'Touhou',
+            'Reimu',
+            'Sakuya',
+            'Fumo',
+            'Junko',
+            'Sino',
+        },
+        callback = function(p232)
+            getgenv().PlushieList_Enabled = p232
+        end,
+    })
+    _Visual.create_slider({
+        name = 'Duration',
+        flag = 'PlushieDuration',
+        section = 'right',
+        value = 1.4,
+        minimum_value = 0,
+        maximum_value = 3,
+        callback = function(p233)
+            getgenv().PlushieAmount_Enabled = p233
+        end,
+    })
+    _Visual.create_title({
+        name = '\u{fffd}\u{fffd} Effects',
+        section = 'right',
+    })
+    _Visual.create_description_toggle({
+        name = 'Trail',
+        description = 'Adds a Trail Effect',
+        flag = 'TrailEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p234)
+            getgenv().Trail_Enabled = p234
+        end,
+    })
+    _Visual.create_slider({
+        name = 'Scale',
+        flag = 'TrailScale',
+        section = 'right',
+        value = 50,
+        minimum_value = 0,
+        maximum_value = 100,
+        callback = function(p235)
+            getgenv().TrailScale_Enabled = p235
+        end,
+    })
+    _Visual.create_description_toggle({
+        name = 'Leg Trail',
+        description = 'Adds a Leg Trail Effect',
+        flag = 'LegTrailEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p236)
+            getgenv().LegTrail_Enabled = p236
+        end,
+    })
+    _Visual.create_description_toggle({
+        name = 'Self Effect',
+        description = 'Adds a Self Effect',
+        flag = 'SelfEffectEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p237)
+            getgenv().SelfEffect_Enabled = p237
+        end,
+    })
+    _Visual.create_title({
+        name = '\u{fffd}\u{fffd} Self Aura',
+        section = 'right',
+    })
+    _Visual.create_description_toggle({
+        name = 'Star Aura',
+        description = 'Adds a Star Aura Effect',
+        flag = 'StarEffectEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p238)
+            getgenv().StarEffect_Enabled = p238
+        end,
+    })
+    _Visual.create_description_toggle({
+        name = 'Light Aura',
+        description = 'Adds a Light Aura Effect',
+        flag = 'LightEfectEnabled',
+        section = 'right',
+        enabled = false,
+        callback = function(p239)
+            getgenv().LightEffect_Enabled = p239
+        end,
+    })
+    u10.Heartbeat:Connect(function()
+        if _LocalPlayer2 and _LocalPlayer2.Character and _LocalPlayer2.Character:FindFirstChild('Humanoid') then
+            local _Humanoid2 = _LocalPlayer2.Character.Humanoid
+            local _JumpHeight_Enabled = getgenv().JumpHeight_Enabled
+            local _JumpHeightValue_Enabled = getgenv().JumpHeightValue_Enabled
+
+            if _JumpHeight_Enabled then
+                _Humanoid2.JumpHeight = _JumpHeightValue_Enabled
+                _Humanoid2.UseJumpPower = false
+            else
+                _Humanoid2.JumpHeight = 7.199999809265137
+                _Humanoid2.UseJumpPower = true
+            end
+        end
+    end)
+    u10.Stepped:Connect(function()
+        local _Strafe_Enabled = getgenv().Strafe_Enabled
+        local _StrafeStrength_Enabled = getgenv().StrafeStrength_Enabled
+
+        if _Strafe_Enabled then
+            if _Strafe_Enabled then
+                local _MoveDirection = _LocalPlayer.Character.Humanoid.MoveDirection
+
+                _LocalPlayer.Character.HumanoidRootPart.CFrame = _LocalPlayer.Character.HumanoidRootPart.CFrame + _MoveDirection * (_StrafeStrength_Enabled / 100)
+            end
+        end
+    end)
+    u10.Heartbeat:Connect(function()
+        local _Flight_Enabled = getgenv().Flight_Enabled
+        local _ = getgenv().FlightKey_Enabled
+        local _FlightStrength_Enabled = getgenv().FlightStrength_Enabled
+
+        if _Flight_Enabled then
+            local v248 = Vector3.new(0, 0.9, 0)
+
+            if not u8:GetFocusedTextBox() then
+                if u8:IsKeyDown(Enum.KeyCode.W) then
+                    v248 = v248 + u13.CurrentCamera.CFrame.LookVector * _FlightStrength_Enabled
+                end
+                if u8:IsKeyDown(Enum.KeyCode.A) then
+                    v248 = v248 + u13.CurrentCamera.CFrame.RightVector * -_FlightStrength_Enabled
+                end
+                if u8:IsKeyDown(Enum.KeyCode.S) then
+                    v248 = v248 + u13.CurrentCamera.CFrame.LookVector * -_FlightStrength_Enabled
+                end
+                if u8:IsKeyDown(Enum.KeyCode.D) then
+                    v248 = v248 + u13.CurrentCamera.CFrame.RightVector * _FlightStrength_Enabled
+                end
+                if u8:IsKeyDown(Enum.KeyCode.Space) then
+                    v248 = v248 + Vector3.new(0, _FlightStrength_Enabled, 0)
+                end
+                if u8:IsKeyDown(Enum.KeyCode.LeftControl) then
+                    v248 = v248 + Vector3.new(0, -_FlightStrength_Enabled, 0)
+                end
+            end
+            if _LocalPlayer.Character and _LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then
+                _LocalPlayer.Character.HumanoidRootPart.Velocity = v248
+
+                _LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+            end
+        end
+    end)
+
+    local u249 = {}
+
+    u10.PostSimulation:Connect(function()
+        if _LocalPlayer4 and _LocalPlayer4.Character then
+            local _Character5 = _LocalPlayer4.Character
+            local _Humanoid3 = _Character5:FindFirstChildOfClass('Humanoid')
+
+            if _Humanoid3 then
+                local _HipHeight_Enabled = getgenv().HipHeight_Enabled
+                local _HipHeightValue_Enabled = getgenv().HipHeightValue_Enabled
+
+                if not u249[_LocalPlayer4.UserId] then
+                    u249[_LocalPlayer4.UserId] = _Humanoid3.HipHeight
+                end
+                if _HipHeight_Enabled then
+                    _Humanoid3.HipHeight = _HipHeightValue_Enabled
+
+                    local v254 = _HipHeightValue_Enabled - _Humanoid3.HipHeight
+
+                    _Character5:SetPrimaryPartCFrame(_Character5.PrimaryPart.CFrame + Vector3.new(0, v254, 0))
+                else
+                    _Humanoid3.HipHeight = u249[_LocalPlayer4.UserId] or _Humanoid3.HipHeight
+                end
+            end
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        if _Workspace.CurrentCamera then
+            if _LocalPlayer2.Character then
+                if getgenv().Gravity_Enabled then
+                    _Workspace.Gravity = 1000 / getgenv().GravityAmount
+                else
+                    _Workspace.Gravity = _Workspace.Gravity
+                end
+            else
+                return
+            end
+        else
+            return
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        if _LocalPlayer2.Character and _LocalPlayer2.Character.PrimaryPart then
+            if getgenv().Trail_Enabled then
+                local v255 = Vector3.new(0, 0, 0)
+
+                if _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid') and _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+                    v255 = Vector3.new(0, 0, 0)
+                end
+                if _LocalPlayer2.Character.PrimaryPart:FindFirstChild('visual_trail') then
+                    local _visual_trail = _LocalPlayer2.Character.PrimaryPart.visual_trail
+
+                    _visual_trail.Position = _LocalPlayer2.Character.PrimaryPart.Position - v255
+
+                    local v257 = getgenv().TrailScale_Enabled / 100
+
+                    _visual_trail.down_line.Lifetime = v257
+                    _visual_trail.upper_line.Lifetime = v257
+                    _visual_trail.trail.Lifetime = v257
+                else
+                    local _Trail = _effects:FindFirstChild('Trail')
+
+                    if _Trail then
+                        local v259 = _Trail:Clone()
+
+                        v259.Name = 'visual_trail'
+                        v259.Position = _LocalPlayer2.Character.PrimaryPart.Position - v255
+                        v259.Parent = _LocalPlayer2.Character.PrimaryPart
+                    end
+                end
+            else
+                if _LocalPlayer2.Character.PrimaryPart:FindFirstChild('visual_trail') then
+                    u16:AddItem(_LocalPlayer2.Character.PrimaryPart.visual_trail, 0)
+                end
+
+                return
+            end
+        else
+            return
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        if _LocalPlayer2.Character and _LocalPlayer2.Character.PrimaryPart then
+            if getgenv().LegTrail_Enabled then
+                local v260 = Vector3.new(0, 0, 0)
+
+                if _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid') and _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+                    v260 = Vector3.new(0, 0, 0)
+                end
+
+                local _LeftFoot = _LocalPlayer2.Character:FindFirstChild('LeftFoot')
+                local _RightFoot = _LocalPlayer2.Character:FindFirstChild('RightFoot')
+
+                if _LeftFoot and _RightFoot then
+                    if _LeftFoot:FindFirstChild('LeftLegTrail') then
+                        _LeftFoot.LeftLegTrail.Position = _LeftFoot.Position - v260
+                    end
+                    if _RightFoot:FindFirstChild('RightLegTrail') then
+                        _RightFoot.RightLegTrail.Position = _RightFoot.Position - v260
+                    end
+
+                    local _LeftLegTrail = _effects:FindFirstChild('LeftLegTrail')
+
+                    if _LeftLegTrail and not _LeftFoot:FindFirstChild('LeftLegTrail') then
+                        local v264 = _LeftLegTrail:Clone()
+
+                        v264.Name = 'LeftLegTrail'
+                        v264.Position = _LeftFoot.Position - v260
+                        v264.Parent = _LeftFoot
+                    end
+
+                    local _RightLegTrail = _effects:FindFirstChild('RightLegTrail')
+
+                    if _RightLegTrail and not _RightFoot:FindFirstChild('RightLegTrail') then
+                        local v266 = _RightLegTrail:Clone()
+
+                        v266.Name = 'RightLegTrail'
+                        v266.Position = _RightFoot.Position - v260
+                        v266.Parent = _RightFoot
+                    end
+                end
+            else
+                local _LeftFoot2 = _LocalPlayer2.Character:FindFirstChild('LeftFoot')
+                local _RightFoot2 = _LocalPlayer2.Character:FindFirstChild('RightFoot')
+
+                if _LeftFoot2 and _RightFoot2 then
+                    local _LeftLegTrail2 = _LeftFoot2:FindFirstChild('LeftLegTrail')
+                    local _RightLegTrail2 = _RightFoot2:FindFirstChild('RightLegTrail')
+
+                    if _LeftLegTrail2 then
+                        _LeftLegTrail2:Destroy()
+                    end
+                    if _RightLegTrail2 then
+                        _RightLegTrail2:Destroy()
+                    end
+                end
+
+                return
+            end
+        else
+            return
+        end
+    end)
+    u10.Heartbeat:Connect(function()
+        if _LocalPlayer2.Character and _LocalPlayer2.Character.PrimaryPart then
+            if getgenv().SelfEffect_Enabled then
+                if not _LocalPlayer2.Character.PrimaryPart:FindFirstChild('visual_efx') then
+                    local v271 = game:GetObjects('rbxassetid://17519530107')[1]
+
+                    v271.Name = 'visual_efx'
+                    v271.Parent = _LocalPlayer2.Character.PrimaryPart
+                end
+            else
+                local _visual_efx = _LocalPlayer2.Character.PrimaryPart:FindFirstChild('visual_efx')
+
+                if _visual_efx then
+                    _visual_efx:Destroy()
+                end
+            end
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        if _LocalPlayer2.Character and _LocalPlayer2.Character.PrimaryPart then
+            if getgenv().StarEffect_Enabled then
+                local v273 = Vector3.new(0, 0, 0)
+
+                if _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid') and _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+                    v273 = Vector3.new(0, 0, 0)
+                end
+                if _LocalPlayer2.Character.PrimaryPart:FindFirstChild('visual_trail1') then
+                    _LocalPlayer2.Character.PrimaryPart.visual_trail1.Position = _LocalPlayer2.Character.PrimaryPart.Position - v273
+                else
+                    local _selfEffect = _effects:FindFirstChild('selfEffect')
+
+                    if _selfEffect then
+                        local v275 = _selfEffect:Clone()
+
+                        v275.Name = 'visual_trail1'
+                        v275.Position = _LocalPlayer2.Character.PrimaryPart.Position - v273
+                        v275.Parent = _LocalPlayer2.Character.PrimaryPart
+                    end
+                end
+            else
+                if _LocalPlayer2.Character.PrimaryPart:FindFirstChild('visual_trail1') then
+                    u16:AddItem(_LocalPlayer2.Character.PrimaryPart.visual_trail1, 0)
+                end
+
+                return
+            end
+        else
+            return
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        if _LocalPlayer2.Character and _LocalPlayer2.Character.PrimaryPart then
+            if getgenv().LightEffect_Enabled then
+                local v276 = Vector3.new(0, 0, 0)
+
+                if _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid') and _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+                    v276 = Vector3.new(0, 0, 0)
+                end
+                if _LocalPlayer2.Character.PrimaryPart:FindFirstChild('visual_trail2') then
+                    _LocalPlayer2.Character.PrimaryPart.visual_trail2.Position = _LocalPlayer2.Character.PrimaryPart.Position - v276
+                else
+                    local _selfeffect2 = _effects:FindFirstChild('selfeffect2')
+
+                    if _selfeffect2 then
+                        local v278 = _selfeffect2:Clone()
+
+                        v278.Name = 'visual_trail2'
+                        v278.Position = _LocalPlayer2.Character.PrimaryPart.Position - v276
+                        v278.Parent = _LocalPlayer2.Character.PrimaryPart
+                    end
+                end
+            else
+                if _LocalPlayer2.Character.PrimaryPart:FindFirstChild('visual_trail2') then
+                    u16:AddItem(_LocalPlayer2.Character.PrimaryPart.visual_trail2, 0)
+                end
+
+                return
+            end
+        else
+            return
+        end
+    end)
+
+    local function u284()
+        local v279 = u14
+        local v280, v281, v282 = pairs(v279:GetChildren())
+
+        while true do
+            local v283
+
+            v282, v283 = v280(v281, v282)
+
+            if v282 == nil then
+                break
+            end
+            if v283:IsA('Sky') then
+                u16:AddItem(v283, 0)
+            end
+        end
+    end
+
+    u14.ChildAdded:Connect(function(p285)
+        if not u69.disconnected then
+            local _Skybox_Enabled = getgenv().Skybox_Enabled
+            local v287 = getgenv().SkyboxType_Enabled or 'Anime'
+
+            if _Skybox_Enabled and p285:IsA('Sky') then
+                u284()
+
+                local v288 = _effects.skyboxes:FindFirstChild(v287)
+
+                if v288 and not u14:FindFirstChild(v288.Name) then
+                    v288:Clone().Parent = u14
+                end
+            end
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        local _Skybox_Enabled2 = getgenv().Skybox_Enabled
+        local v290 = getgenv().SkyboxType_Enabled or 'Anime'
+
+        if _Skybox_Enabled2 then
+            if not u14:FindFirstChild(v290) then
+                u284()
+
+                local v291 = _effects.skyboxes:FindFirstChild(v290)
+
+                if v291 then
+                    v291:Clone().Parent = u14
+                end
+            end
+        else
+            u284()
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        local _Ambient_Enabled = getgenv().Ambient_Enabled
+        local _protected = u24.protected
+
+        if _Ambient_Enabled then
+            local v294 = u14:FindFirstChild(_protected)
+
+            if v294 then
+                local v295 = getgenv().Density_Enabled / 100
+
+                if v294.Density ~= v295 then
+                    create_animation(v294, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {Density = v295})
+                end
+
+                return
+            else
+                local _Atmosphere = _effects:FindFirstChildOfClass('Atmosphere')
+
+                if _Atmosphere then
+                    local v297 = _Atmosphere:Clone()
+
+                    v297.Parent = u14
+                    v297.Name = _protected
+                    v297.Offset = 0.115
+                    v297.Density = 0
+                end
+            end
+        else
+            local v298 = u14:FindFirstChild(_protected)
+
+            if v298 then
+                create_animation(v298, TweenInfo.new(2), {Density = 0})
+                u16:AddItem(v298, 2)
+            end
+
+            return
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        if _LocalPlayer2.Character and _LocalPlayer2.Character.PrimaryPart then
+            if getgenv().SnowEffect_Enabled then
+                local v299 = Vector3.new(0, -30, 0)
+
+                if _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid') and _LocalPlayer2.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+                    v299 = Vector3.new(0, -30, 0)
+                end
+                if _LocalPlayer2.Character.PrimaryPart:FindFirstChild('SnowEffect') then
+                    _LocalPlayer2.Character.PrimaryPart.SnowEffect.Position = _LocalPlayer2.Character.PrimaryPart.Position - v299
+                else
+                    local _Snow = _effects:FindFirstChild('Snow')
+
+                    if _Snow then
+                        local v301 = _Snow:Clone()
+
+                        v301.Name = 'SnowEffect'
+                        v301.Position = _LocalPlayer2.Character.PrimaryPart.Position - v299
+                        v301.Parent = _LocalPlayer2.Character.PrimaryPart
+                    end
+                end
+            else
+                if _LocalPlayer2.Character.PrimaryPart:FindFirstChild('SnowEffect') then
+                    u16:AddItem(_LocalPlayer2.Character.PrimaryPart.SnowEffect, 0)
+                end
+
+                return
+            end
+        else
+            return
+        end
+    end)
+    u10.PostSimulation:Connect(function()
+        local _Brightness_Enabled = getgenv().Brightness_Enabled
+        local _BrightnessValue_Enabled = getgenv().BrightnessValue_Enabled
+
+        if _Brightness_Enabled then
+            if _Brightness_Enabled then
+                game:GetService('Lighting').Brightness = _BrightnessValue_Enabled / 4.5
+            end
+        else
+            game:GetService('Lighting').Brightness = _Brightness
+        end
+    end)
+    u10.Heartbeat:Connect(function()
+        if getgenv().NightTime_Enabled then
+            if u14.ClockTime ~= 2.5 then
+                create_animation(u14, TweenInfo.new(1.6), {ClockTime = 2.5})
+            end
+        elseif u14.ClockTime ~= 11.2 then
+            create_animation(u14, TweenInfo.new(1.6), {ClockTime = 11.2})
+        end
+    end)
+
+    local u304 = '_Map'
+
+    local function u306()
+        local v305 = _Workspace:FindFirstChild(u304)
+
+        if getgenv().HideMap_Enabled then
+            if v305 then
+                v305.Parent = u7
+            end
+        elseif u7:FindFirstChild(u304) then
+            u7[u304].Parent = _Workspace
+        end
+    end
+
+    game:GetService('RunService').Heartbeat:Connect(function()
+        u306()
+    end)
+
+    local _Folder = Instance.new('Folder', _Workspace)
+
+    _Folder.Name = u24.protected
+
+    local function u313()
+        local v308 = _Folder
+        local v309, v310, v311 = ipairs(v308:GetChildren())
+
+        while true do
+            local v312
+
+            v311, v312 = v309(v310, v311)
+
+            if v311 == nil then
+                break
+            end
+
+            u16:AddItem(v312, 0)
+        end
+    end
+
+    ({}).plushie = u10.RenderStepped:Connect(function()
+        local _Plushie_Enabled = getgenv().Plushie_Enabled
+        local _PlushieList_Enabled = getgenv().PlushieList_Enabled
+
+        if _Plushie_Enabled then
+            if _LocalPlayer2.Character and _LocalPlayer2.Character.PrimaryPart then
+                local v316 = u24[_PlushieList_Enabled]
+
+                if _Folder:FindFirstChild(v316) then
+                    local v317 = _Folder[v316]
+                    local v318 = _LocalPlayer2.Character.PrimaryPart.CFrame * CFrame.new(Vector3.new(-2 - math.cos(tick() / 2), 6.5 + math.cos(tick() / 2), -2 - math.sin(tick() / 2))) * CFrame.Angles(0, math.rad(-90), 0)
+
+                    if _PlushieList_Enabled == 'Sino' or _PlushieList_Enabled == 'Sino' then
+                        v318 = _LocalPlayer2.Character.PrimaryPart.CFrame * CFrame.new(Vector3.new(-2 - math.cos(tick() / 2), 6.5 + math.cos(tick() / 2), -2 - math.sin(tick() / 2)))
+
+                        if _PlushieList_Enabled == 'Sino' then
+                            v318 = v318 * CFrame.Angles(math.rad(90), 0, math.rad(260))
+                        end
+                    elseif _PlushieList_Enabled == 'Pillow' then
+                        v318 = v318 * CFrame.Angles(math.rad(180 - math.cos(tick() / 5) * 4), 0, math.rad(180 + math.cos(tick() / 8) * 4))
+                    elseif _PlushieList_Enabled == 'Sakuya' then
+                        v318 = v318 * CFrame.Angles(math.rad(180 - math.cos(tick() / 5) * 4), 140, math.rad(180 + math.cos(tick() / 8) * 4))
+                    elseif _PlushieList_Enabled == 'Reimu' then
+                        v318 = v318 * CFrame.Angles(math.rad(180 - math.cos(tick() / 5) * 4), 140, math.rad(180 + math.cos(tick() / 8) * 4))
+                    elseif _PlushieList_Enabled == 'Fumo' then
+                        v318 = v318 * CFrame.Angles(math.rad(180 - math.cos(tick() / 5) * 4), 179.5, math.rad(180 + math.cos(tick() / 8) * 4))
+                    elseif _PlushieList_Enabled == 'Kira' then
+                        v318 = v318 * CFrame.Angles(math.rad(180 - math.cos(tick() / 5) * 4), 140, math.rad(180 + math.cos(tick() / 8) * 4))
+                    elseif _PlushieList_Enabled == 'Junko' then
+                        v318 = v318 * CFrame.Angles(math.rad(180 - math.cos(tick() / 5) * 4), 140, math.rad(180 + math.cos(tick() / 8) * 4))
+                    end
+
+                    create_animation(v317, TweenInfo.new(getgenv().PlushieAmount_Enabled), {CFrame = v318})
+                else
+                    u313()
+
+                    local v319 = _objects:FindFirstChild(_PlushieList_Enabled)
+
+                    if v319 then
+                        local v320 = v319:Clone()
+
+                        v320.Parent = _Folder
+                        v320.Name = v316
+                    end
+                end
+            end
+        else
+            u313()
+
+            return
+        end
+    end)
+
+    game:GetService('RunService').Heartbeat:Connect(function()
+        local _AutoRec_Enabled = getgenv().AutoRec_Enabled
+        local _AutoSpiking_Enabled = getgenv().AutoSpiking_Enabled
+        local _AutoServe_Enabled = getgenv().AutoServe_Enabled
+        local _AutoDive_Enabled = getgenv().AutoDive_Enabled
+        local _AutoBlock_Enabled = getgenv().AutoBlock_Enabled
+
+        if _AutoRec_Enabled then
+            _PlayerAction:FireServer(unpack({
+                'Receiving',
+            }))
+        end
+        if _AutoSpiking_Enabled then
+            _PlayerAction:FireServer(unpack({
+                'Spiking',
+            }))
+        end
+        if _AutoServe_Enabled then
+            _PlayerAction:FireServer(unpack({
+                'SpawnBall',
+                {
+                    'ServeToss',
+                },
+            }))
+        end
+        if _AutoDive_Enabled then
+            _PlayerAction:FireServer(unpack({
+                'Diving',
+            }))
+        end
+        if _AutoBlock_Enabled then
+            _PlayerAction:FireServer(unpack({
+                'Blocking',
+            }))
+        end
+    end)
+    game:GetService('RunService').Heartbeat:Connect(function()
+        local _AntiServeLF_Enabled = getgenv().AntiServeLF_Enabled
+        local _AntiBackrowLF_Enabled = getgenv().AntiBackrowLF_Enabled
+        local _AntiPartVisible_Enabled = getgenv().AntiPartVisible_Enabled
+        local _AntiPartTransparency_Enabled = getgenv().AntiPartTransparency_Enabled
+        local _AntiBarrierSide_Enabled = getgenv().AntiBarrierSide_Enabled
+        local _AntiLockCourt_Enabled = getgenv().AntiLockCourt_Enabled
+        local _AntiCeiling_Enabled = getgenv().AntiCeiling_Enabled
+        local _Team4 = _LocalPlayer4.Team
+
+        if _AntiServeLF_Enabled then
+            game.Workspace.ServeLF.Size = Vector3.new(0.001, 1, 0.001)
+
+            if _AntiPartVisible_Enabled then
+                game.Workspace.ServeLF.Transparency = _AntiPartTransparency_Enabled
+            else
+                game.Workspace.ServeLF.Transparency = 1
+            end
+        else
+            game.Workspace.ServeLF.Size = Vector3.new(95, 1, 120)
+
+            if _AntiPartVisible_Enabled then
+                game.Workspace.ServeLF.Transparency = _AntiPartTransparency_Enabled
+            else
+                game.Workspace.ServeLF.Transparency = 1
+            end
+        end
+        if _AntiBackrowLF_Enabled then
+            game.Workspace.BackrowLF.Size = Vector3.new(0.001, 1, 0.001)
+
+            if _AntiPartVisible_Enabled then
+                game.Workspace.BackrowLF.Transparency = _AntiPartTransparency_Enabled
+            else
+                game.Workspace.BackrowLF.Transparency = 1
+            end
+        else
+            game.Workspace.BackrowLF.Size = Vector3.new(33, 1.499990463256836, 80)
+
+            if _AntiPartVisible_Enabled then
+                game.Workspace.BackrowLF.Transparency = _AntiPartTransparency_Enabled
+            else
+                game.Workspace.BackrowLF.Transparency = 1
+            end
+        end
+        if _AntiLockCourt_Enabled then
+            u13.LockCourt.CanCollide = false
+        else
+            u13.LockCourt.CanCollide = true
+        end
+        if _AntiBarrierSide_Enabled then
+            u13.RedSide.CanCollide = false
+            u13.BlueSide.CanCollide = false
+        else
+            if _Team4.Name ~= 'Red' then
+                if _Team4.Name == 'Blue' then
+                    u13.RedSide.CanCollide = true
+                    u13.BlueSide.CanCollide = false
+                end
+            else
+                u13.BlueSide.CanCollide = true
+                u13.RedSide.CanCollide = false
+            end
+            if _AntiCeiling_Enabled then
+                u13.Ceiling.CanCollide = false
+            else
+                u13.Ceiling.CanCollide = true
+            end
+        end
+    end)
+
+    return v70
+end
+
+u5('Notification', 'Script Already Executed!', 3)
